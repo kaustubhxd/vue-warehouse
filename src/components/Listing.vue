@@ -1,10 +1,8 @@
 <template>
     <div id="listing">
         <div id="header"><h2>Browse Warehouses</h2></div> 
-        <div id="cards">
-            <Card/>
-            <Card/>
-            <Card/>
+        <div id="cards" v-for='(listing,id) in listings' :key='id' >
+            <Card :id='id' :listing="listing"/>
         </div>
 
     </div>
@@ -13,9 +11,13 @@
 
 <script>
 import Card from './Card'
+// import {mapGetters} from 'vuex'
 
 export default {
-    components : {Card}
+    components : {Card},
+    computed: {
+        listings() { return this.$store.state }
+    }
 }
 </script>
 

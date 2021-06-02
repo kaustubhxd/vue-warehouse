@@ -1,29 +1,29 @@
 <template>
   <div id="card">
-      <div id="name">Warehouse-165</div>
-      <div id="city">Delhi</div>
+      <div id="name">{{listing.name}}</div>
+      <div id="city">{{listing.city}}</div>
       <div id="details-row">
             <div class="detail">
                 <div class="detail-header">Type</div>
-                <div class="detail-value">Leasable Space</div>
+                <div class="detail-value">{{listing.type}}</div>
             </div>
             <div class="detail">
                 <div class="detail-header">Space Available</div>
-                <div class="detail-value">1234</div>
+                <div class="detail-value">{{listing.space_available}}</div>
             </div>
             <div class="detail">
                 <div class="detail-header">Cluster</div>
-                <div class="detail-value">cluster-a-1</div>
+                <div class="detail-value">{{listing.cluster}}</div>
             </div>
             <div class="detail">
               <div class="detail-header">Code</div>
-              <div class="detail-value">W-00001</div>
+              <div class="detail-value">{{listing.code}}</div>
             </div>
       </div>
       <div id="footer-row">
           <div class="pills">
-            <div class="pill available">Available</div>
-            <div class="pill live">Live</div>
+            <div class="pill available" v-if="listing.is_registered">Registered</div>
+            <div class="pill live" v-if="listing.is_live">Live</div>
           </div>
           <div id="view-details">View Details ></div>
       </div>
@@ -32,6 +32,7 @@
 
 <script>
 export default {
+    props: ['id','listing']
 
 }
 </script>
