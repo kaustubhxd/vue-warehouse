@@ -1,0 +1,128 @@
+<template>
+  <div id="card">
+      <div id="name">Warehouse-165</div>
+      <div id="city">Delhi</div>
+      <div id="details-row">
+            <div class="detail">
+                <div class="detail-header">Type</div>
+                <div class="detail-value">Leasable Space</div>
+            </div>
+            <div class="detail">
+                <div class="detail-header">Space Available</div>
+                <div class="detail-value">1234</div>
+            </div>
+            <div class="detail">
+                <div class="detail-header">Cluster</div>
+                <div class="detail-value">cluster-a-1</div>
+            </div>
+            <div class="detail">
+              <div class="detail-header">Code</div>
+              <div class="detail-value">W-00001</div>
+            </div>
+      </div>
+      <div id="footer-row">
+          <div class="pills">
+            <div class="pill available">Available</div>
+            <div class="pill live">Live</div>
+          </div>
+          <div id="view-details">View Details ></div>
+      </div>
+  </div>
+</template>
+
+<script>
+export default {
+
+}
+</script>
+
+<style lang="scss" scoped>
+    #card{
+        background: #fff;
+        padding: 23px;
+        margin-bottom: 24px;
+        border: 1px solid #EEE;
+        box-shadow: 0 1px 2px rgba(0,0,0,.08);
+        border-radius: 6px;
+        margin : 16px;
+
+        #name {
+            font-size: 18px;
+            font-weight: 700;
+            color : $color-header-light;
+            margin-bottom : 5px;
+        }
+
+        #city{
+            font-size: 14px;
+            font-weight: 700;
+            color: #8A8A8A;
+        }
+
+        #details-row{
+            display: flex;
+            margin-top: 20px;
+
+            .detail{
+                margin: 0 32px 0 0;
+
+                    .detail-header{
+                        font-size: 12px;
+                        line-height: 16px;
+                        letter-spacing: .5px;
+                        text-transform: uppercase;
+                        color: #8A8A8A;
+                        font-weight: 600;
+                    }
+
+                    .detail-value{
+                        color: #333;
+                        font-size: 14px;
+                        line-height: 1.57142857;
+                        font-weight: 400;
+                    }
+            }
+
+        }
+
+        #footer-row{
+            margin-top : 20px;
+            display: flex;
+            justify-content: space-between;
+
+
+            .pills{
+                display: flex;
+
+                .pill{
+                    padding: 6px 12px;
+                    border-radius: 14px;
+                    font-size: 14px;
+                    color: #666;
+                    line-height: 16px;
+                    margin-right: 8px;
+                }
+
+                .available{
+                    background: aliceblue;
+                }
+
+                .live{
+                    background: antiquewhite;
+                }
+            }
+
+            #view-details{
+                text-decoration: none;
+                color: #008BDC;
+                cursor: pointer;
+                line-height: 1.14285714;
+
+                &:hover,&:active{
+                    color: #186795
+                }
+            }
+
+        }
+    }
+</style>
