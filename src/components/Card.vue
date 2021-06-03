@@ -118,6 +118,10 @@ export default {
                 color: #008BDC;
                 cursor: pointer;
                 line-height: 1.14285714;
+                font-size: 14px;
+                font-weight: bold;
+                letter-spacing: .2px;
+                align-self: flex-end;
 
                 &:hover,&:active{
                     color: #186795

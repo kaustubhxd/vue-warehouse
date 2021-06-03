@@ -1,6 +1,6 @@
 <template>
     <div id="listing">
-        <div id="header"><h2>Browse Warehouses</h2></div> 
+        <div id="header"><h3>Browse Warehouses</h3></div> 
         <div id="cards" v-for='(listing,id) in listings' :key='id' >
             <Card :id='id' :listing="listing"/>
         </div>
@@ -24,7 +24,8 @@ export default {
 <style lang='scss' scoped>
     #listing{
         flex : 1;
-        background : lemonchiffon;
+        overflow-y: auto;
+        height : 100vh;
 
         #header{
             margin : 16px 0 32px 0;

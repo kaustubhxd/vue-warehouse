@@ -15,7 +15,7 @@ export default {
     height: 50px;
     box-shadow: 0 1px 3px 0 rgba(0,0,0,.15);
     padding: 10px;
-
+    margin-bottom: 2px;
     display: flex;
 
 }
