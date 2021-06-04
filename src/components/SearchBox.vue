@@ -2,41 +2,42 @@
 <div id="search-box">
     <div class="labels">
      <p class="search-label">{{label}}</p>
-     <p class='clear-search' v-show="value.length > 0" v-on:click="clearValue()">Clear</p>
+     <p class='clear-search' v-show="filters[searchBy].length > 0" v-on:click="clearFilterAction(searchBy)">Clear</p>
     </div>
-    <Multiselect v-if="type =='single'" v-model="value" :options="options" :searchable="false" 
-      :close-on-select="true" :show-labels="false" placeholder=""></Multiselect>
-    <Multiselect v-else v-model="value" tag-placeholder="Add this as new tag" placeholder="" 
-      label="value" track-by="id" :options="options" :multiple="true" :taggable="true" @tag="addTag"></Multiselect>
+    <Multiselect v-if="type =='single'" :value='filters[searchBy]' :options="options" :searchable="true" 
+      :close-on-select="true" :show-labels="false" placeholder="" @select="updateFilterAction({value : $event,searchBy})"></Multiselect>
+    <Multiselect v-else :value='filters[searchBy]' tag-placeholder="Add this as new tag" placeholder="" 
+      label="value" track-by="id" :options="options" :multiple="true" :taggable="true" @select="updateFilterAction({value : $event,searchBy})" @remove="updateFilterAction({value : $event,searchBy})"></Multiselect>
 </div>
 </template>
 
 <script>
 import Multiselect from 'vue-multiselect'
+import  { mapActions, mapGetters } from 'vuex'
 
 export default {
-    props : ['options','label','type'],
+    props : ['searchBy','options','label','type'],
     components: {
         Multiselect
     },
-    data: function(){
-        return{
-            value: [],
-        }
+    // data: function(){
+    //     return{
+    //         localValue: '',
+    //     }
+    // },
+    computed : {
+        ...mapGetters({
+        filters: "getFilters"
+      })
     },
     methods: {
-    addTag (newTag) {
-        const tag = {
-            name: newTag,
-            code: newTag.substring(0, 2) + Math.floor((Math.random() * 10000000))
-        }
-        this.options.push(tag)
-        this.value.push(tag)
+        ...mapActions(['updateFilterAction','clearFilterAction'])
     },
-    clearValue(){
-        this.value = []
-    }
-}
+    // mounted: function() {
+    //    if (this.filters){
+    //       this.localValue = this.filters[this.searchBy]
+    //    }
+    // }
 }
 </script>
 
@@ -59,10 +60,10 @@ export default {
 
         .clear-search{
             cursor: pointer;
-            color: lightcoral;
+            color: $stockarea-red;
 
-            &:hover {
-                color : coral;
+            &:hover, &:active, &:focus {
+                color : $stockarea-red-deep;
             }
         }
     }

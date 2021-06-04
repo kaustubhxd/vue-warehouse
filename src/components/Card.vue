@@ -13,7 +13,7 @@
             </div>
             <div class="detail">
                 <div class="detail-header">Cluster</div>
-                <div class="detail-value">{{listing.cluster}}</div>
+                <div class="detail-value">{{listing.cluster.toUpperCase()}}</div>
             </div>
             <div class="detail">
               <div class="detail-header">Code</div>
@@ -22,11 +22,14 @@
       </div>
       <div id="footer-row">
           <div class="pills">
-            <div class="pill available" v-if="listing.is_registered">Registered</div>
-            <div class="pill live" v-if="listing.is_live">Live</div>
+            <div class="pill available noselect" v-if="listing.is_registered">Registered</div>
+            <div class="pill live noselect" v-if="listing.is_live">Live</div>
           </div>
-          <div id="view-details">View Details ></div>
-      </div>
+          <router-link :to=" '/warehouse-' + id ">
+            <div id="view-details">View Details ></div>
+        </router-link>   
+        </div>
+        <slot></slot>
   </div>
 </template>
 
@@ -46,6 +49,10 @@ export default {
         box-shadow: 0 1px 2px rgba(0,0,0,.08);
         border-radius: 6px;
         margin : 16px;
+
+        &:hover, &:active, &:focus{
+            box-shadow: 0 4px 18px rgba(45,48,71,.05);
+        }
 
         #name {
             font-size: 18px;
@@ -105,17 +112,17 @@ export default {
                 }
 
                 .available{
-                    background: aliceblue;
+                    background: lightcyan;
                 }
 
                 .live{
-                    background: antiquewhite;
+                    background: lavender;
                 }
             }
 
             #view-details{
                 text-decoration: none;
-                color: #008BDC;
+                color: $stockarea-red;
                 cursor: pointer;
                 line-height: 1.14285714;
                 font-size: 14px;
@@ -124,7 +131,7 @@ export default {
                 align-self: flex-end;
 
                 &:hover,&:active{
-                    color: #186795
+                    color: $stockarea-red-deep
                 }
             }
 

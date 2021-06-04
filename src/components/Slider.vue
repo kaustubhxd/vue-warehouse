@@ -2,19 +2,23 @@
     <div>
         <div class="labels">
             <p class="search-label">{{label}}</p>
-            <p class='clear-search' v-show="userMinMax[0] != range.min || userMinMax[1] != range.max" v-on:click="clearRange()">Clear</p>
+            <p class='clear-search' v-show="userMinMax[0] != range.min || userMinMax[1] != range.max" @click="clearRange()">Clear</p>
         </div>        
-        <VueSlider v-model="userMinMax" :min="range.min" :max="range.max"></VueSlider>
+        <VueSlider v-model="userMinMax" :lazy='true' :min="range.min" :max="range.max"
+            @change="updateSliderAction({range : $event})">
+        </VueSlider>
         <div class="ranges">
             <p>{{userMinMax[0]}}</p>
             <p>{{userMinMax[1]}}</p>
         </div>
-
+        <!-- {{range}}
+    {{userMinMax}} -->
     </div>
 </template>
 
 <script>
 import VueSlider from 'vue-slider-component'
+import { mapActions } from 'vuex'
 export default {
     props: ['range','label'],
     data(){
@@ -28,8 +32,14 @@ export default {
     methods : {
         clearRange(){
             this.userMinMax = [this.range.min,this.range.max]
-        }
-    }
+            this.clearSliderAction(this.range)
+        },
+        ...mapActions(['updateSliderAction','clearSliderAction'])
+
+        
+
+    },
+    
 }
 </script>
 
@@ -60,10 +70,10 @@ p{
 
     .clear-search{
         cursor: pointer;
-        color: lightcoral;
+        color: $stockarea-red;
 
-        &:hover {
-            color : coral;
+        &:hover, &:active, &:focus {
+            color : $stockarea-red-deep;
         }
     }
 }

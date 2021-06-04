@@ -7,20 +7,23 @@
           <!-- <pre class="language-json"><code>{{ value  }}</code></pre> -->
         <!-- {{warehouseNames}} -->
         <!-- {{warehouseNames}} -->
-        <SearchBox :options='warehouseNames' label='Search by Warehouse Name' type='multi'/>
-        <SearchBox :options='cityNames' label='Filter by City' type='single'/>
-        <SearchBox :options='clusterNames' label='Filter by Cluster' type='single'/>
-        <Slider :range='availSpaceRange' label='Filter by Available Space'/>
+        <SearchBox searchBy='warehouse' :options='warehouseNames' label='Search by Warehouse Name' type='multi'/>
+        <SearchBox searchBy='city' :options='cityNames' label='Filter by City' type='single'/>
+        <SearchBox searchBy='cluster' :options='clusterNames' label='Filter by Cluster' type='single'/>
+        <Slider searchBy='availSpace' :range='availSpaceRange' label='Filter by Available Space'/>
+        <StatusFilter/>
     </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import SearchBox from './SearchBox'
 import Slider from './Slider'
+import StatusFilter from './StatusFilter'
 
 export default {
     components: {
-        SearchBox, Slider
+        SearchBox, Slider, StatusFilter
     },
     data: function(){
         return{
@@ -28,18 +31,12 @@ export default {
         }
     },
     computed: {
-        warehouseNames () {
-            return this.$store.getters.warehouseNames
-        },
-        cityNames () {
-            return this.$store.getters.cityNames
-        },
-        clusterNames () {
-            return this.$store.getters.clusterNames
-        },
-        availSpaceRange () {
-            return this.$store.getters.availSpaceRange
-        }
+        ...mapGetters([
+            'availSpaceRange',
+            'warehouseNames',
+            'cityNames',
+            'clusterNames'  
+        ])
     },
     methods: {}
 }
@@ -61,6 +58,7 @@ export default {
         max-height: 562px;
         padding-top: 16px;
         margin-top : 20px;
+        overflow: visible;
 
         #header{
             margin : 16px 0 32px 0;
@@ -85,5 +83,6 @@ export default {
                 width: 250px;
             }
         }
+
     }
 </style>

@@ -21,7 +21,6 @@ export default {
 </script>
 
 <style lang="scss">
-
 #nav {
   a {
     font-weight: bold;
