@@ -2,7 +2,7 @@
   <div class="warehouse-container">
     <div id="go-back">
       <router-link  to="/">
-          <span class="label"> Back</span>
+          <a class="label red-link">Back</a>
      </router-link>
     </div>
     <div class="warehouse-details">
@@ -74,8 +74,6 @@ export default {
 
       .warehouse-details{
         max-width: 100%;
-        margin: 48px 200px;
-        min-width: 430px;
       }
 
       #detail-header{

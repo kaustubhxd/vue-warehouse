@@ -34,7 +34,7 @@ export default {
             this.userMinMax = [this.range.min,this.range.max]
             this.clearSliderAction(this.range)
         },
-        ...mapActions(['updateSliderAction','clearSliderAction'])
+        ...mapActions('filtersMod',['updateSliderAction','clearSliderAction'])
 
         
 

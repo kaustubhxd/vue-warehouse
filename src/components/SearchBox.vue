@@ -27,11 +27,11 @@ export default {
     // },
     computed : {
         ...mapGetters({
-        filters: "getFilters"
+        filters: 'filtersMod/getFilters'
       })
     },
     methods: {
-        ...mapActions(['updateFilterAction','clearFilterAction'])
+        ...mapActions( 'filtersMod', ['updateFilterAction', 'clearFilterAction']),
     },
     // mounted: function() {
     //    if (this.filters){

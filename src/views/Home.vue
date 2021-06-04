@@ -1,6 +1,6 @@
 <template>
   <div id="home">
-    <Filters/>
+    <div id="filters-container"><Filters/></div>
     <Listing/>
   </div>
 </template>
@@ -10,11 +10,12 @@ import Listing from '@/components/Listing.vue'
 import Filters from '@/components/Filters.vue'
 import { mapActions } from 'vuex'
 
+
 export default {
   name: 'Home',
   components: { Listing, Filters },
   methods : {
-    ...mapActions(['clearAllFiltersAction'])
+    ...mapActions({clearAllFiltersAction : 'filtersMod/clearAllFiltersAction'})
   },
   mounted: function() {
     this.clearAllFiltersAction()
@@ -27,4 +28,10 @@ export default {
     display: flex;
     background-color : #fbfbfb;
   }
+
+@media only screen and (max-width: 800px) {
+  #filters-container{
+    display: none;
+  }
+}
 </style>

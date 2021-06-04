@@ -26,11 +26,11 @@ export default {
     },
     computed : {
         ...mapGetters({
-        filters: "getFilters"
+        filters: "filtersMod/getFilters"
       })
     },
     methods :{
-        ...mapActions(['updateFilterAction','clearFilterAction']),
+        ...mapActions( 'filtersMod', ['updateFilterAction', 'clearFilterAction']),
         clearBothFilters(){
             this.clearFilterAction('is_live')
             this.clearFilterAction('is_registered')

@@ -45,7 +45,7 @@ export default {
         },
         focusInput() {
             setTimeout(() => {
-                console.log(this.$refs)
+                // // console.log(this.$refs)
                 this.$refs.editable.focus();
             },500)
         },

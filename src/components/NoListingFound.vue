@@ -2,7 +2,7 @@
   <div id='not-found'>
         <div id="meow-header"><p>Currently, we have no listings matching your filter. <span id='clear-filter' @click="clearAllFiltersAction">Clear filter?</span></p></div>
         <div v-show="meoURL != ''">
-            <img :src="meoURL" alt="">
+            <img id='cat-image' :src="meoURL" alt="" @click='fetchMeow'>
             <div id="meow-footer"> <p>Meanwhile, here's a cat for you ❤</p> </div> 
         </div>
   </div>
@@ -19,19 +19,16 @@ export default {
         }
     },
   methods : {
-    ...mapActions(['clearAllFiltersAction']),
-  },
-    mounted: function() {
+    ...mapActions('filtersMod',['clearAllFiltersAction']),
+    fetchMeow : function () {
         axios
         .get(`https://robohash.org/${Math.random()}?set=set4`, {responseType:'blob'})
             .then(response => response.data)
             .then( blob => this.meoURL = URL.createObjectURL(blob) )
-
-        // .then(response => response.blob())
-        //     .then(image => {
-        //         var localURL = URL.createObjectURL(image)
-        //         this.meoURL = localURL
-        // })  
+    }
+  },
+    mounted: function() {
+        this.fetchMeow()
     }
 }
 </script>
@@ -57,6 +54,11 @@ p{
     color: #333;
     margin-bottom: 6px;
     margin : 10px 0;
+}
+
+img{
+    width : 200px;
+    cursor : pointer;
 }
 
 

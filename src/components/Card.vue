@@ -26,7 +26,7 @@
             <div class="pill live noselect" v-if="listing.is_live">Live</div>
           </div>
           <router-link :to=" '/warehouse-' + id ">
-            <div id="view-details">View Details ></div>
+            <a id="view-details" class='red-link'>View Details ></a>
         </router-link>   
         </div>
         <slot></slot>
@@ -51,7 +51,7 @@ export default {
         margin : 16px;
 
         &:hover, &:active, &:focus{
-            box-shadow: 0 4px 18px rgba(45,48,71,.05);
+            box-shadow: 0 8px 10px rgba(45, 48, 71, 0.1);
         }
 
         #name {
@@ -69,10 +69,11 @@ export default {
 
         #details-row{
             display: flex;
+            flex-wrap: wrap;
             margin-top: 20px;
 
             .detail{
-                margin: 0 32px 0 0;
+                margin: 5px 32px 5px 0;
 
                     .detail-header{
                         font-size: 12px;

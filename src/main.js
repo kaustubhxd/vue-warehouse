@@ -2,8 +2,11 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import FullpageModal from 'vue-fullpage-modal'
+import Vuebar from 'vuebar';
 
 Vue.config.productionTip = false
+Vue.use(FullpageModal).use(Vuebar)
 
 new Vue({
   router,

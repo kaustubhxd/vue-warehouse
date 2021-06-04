@@ -7,7 +7,7 @@
             <EditableText :value="listing.city" :origin="{id,type: 'city'}"  :isEditable='editMode' inputWidth='130px'  
                 :customStyle="{'color' : '#8A8A8A', 'font-size':'14px','font-weight':'700'}" />
         </div>
-        <div id='edit-text-prompt' @click="toggleEditMode()"> {{ editMode? 'Finish Editing' : 'Edit Info' }}</div>
+        <a id='edit-text-prompt' class='red-link' @click="toggleEditMode()"> {{ editMode? 'Finish Editing' : 'Edit Info' }}</a>
       </div>
       <div id="details-row">
             <div class="detail">
@@ -60,8 +60,8 @@ export default {
         },
         pillToggle(type){
             if(this.editMode){
-                console.log(type)
-                console.log('pill clicked')
+                // // console.log(type)
+                // // console.log('pill clicked')
                 this.setUserValueAction({ id: this.id,type, value: !this.listing[type]})
             }
         }
@@ -88,20 +88,12 @@ export default {
             #edit-text-prompt{
                 font-size: 16px;
                 font-weight: 700;
-                color: $stockarea-red;
-                cursor: pointer;
-                height: max-content;
-                
-
-                &:hover, &:active, &:focus{
-                    color: $stockarea-red-deep;
-
-                }
             }
         }
 
         #details-row{
             display: flex;
+            flex-wrap: wrap;
             margin-top: 20px;
 
             .detail{
@@ -172,5 +164,16 @@ export default {
 
 .pill-deselect{
     background: white !important;
+}
+
+@media only screen and (max-width: 450px) {
+
+    #card-header{
+        flex-direction: column;
+
+        #edit-text-prompt {
+            margin-top: 5px;
+        }
+    }
 }
 </style>

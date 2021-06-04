@@ -1,8 +1,12 @@
 <template>
-    <div id="listing">
+<div v-bar  style="width : 100%">
+    <div id="listing" @scroll='handleScroll'>
         <div id="header"><h3>Browse Warehouses</h3></div> 
-        <div id='total-results'>{{totalResults}} {{totalResults === 1 ? 'result' : 'results'}} found</div>
 
+        <div id='listing-options'>
+            <a id='filter-button' class='red-link' @click="openModal" >Filter</a>
+            <div id='total-results'>{{totalResults}} {{totalResults === 1 ? 'result' : 'results'}} found</div>
+        </div>
         <div v-if="totalResults > 0">
             <div id="cards"  v-for='(listing,id) in listings' :key='id' >
                 <Card :id='id' :listing="listing"/>
@@ -12,12 +16,14 @@
             <NoListingFound/>
         </div>
     </div>
+</div>
 </template>
 
 <script>
 import Card from './Card'
 import NoListingFound from './NoListingFound'
-import { mapGetters} from 'vuex'
+import { mapActions, mapGetters} from 'vuex'
+import Filters from './Filters'
 
 export default {
     components : {Card, NoListingFound},
@@ -34,35 +40,46 @@ export default {
             }
         }
     },
+    methods : {   
+        ...mapActions(['setListingScrollTopAction']),
+        openModal() {
+            this.$FModal.show(
+                {  component: Filters }, 
+            )
+        },
+        handleScroll(e){
+            this.setListingScrollTopAction({scrollTop : e.target.scrollTop})
+        }
+    },
     computed: {
-        ...mapGetters(['getData','getFilters']),
+        ...mapGetters({ getData : 'getData', getFilters: 'filtersMod/getFilters'}),
          totalResults() { return Object.keys(this.listings).length }
         
     },
       watch: {
-        '$store.state.filters': {
+        '$store.state.filtersMod.filters': {
                 immediate: true,
                 deep : true,
                 handler() {
                 // update locally relevant data
                 // this.someLocalValue = this.$store.state.data.someKey;
                 var {warehouse, city, cluster,availSpace,availSpaceReset, is_live,is_registered} = this.getFilters
-                console.log(warehouse.length === 0,!city,!cluster,availSpaceReset )
+                // // console.log(warehouse.length === 0,!city,!cluster,availSpaceReset )
 
                 // check if filters have been cleared
                 if( warehouse.length === 0 && !city && !cluster && availSpaceReset && !is_live && !is_registered){
-                    console.log('filters cleared')
+                    // // console.log('filters cleared')
                     this.listings = this.getData
                     this.appliedFilters = { warehouse : [], city : '', cluster : '', availSpace : '',is_live : false, is_registered : false } 
                 }else{
-                    console.log('filters applied')
+                    // console.log('filters applied')
                     this.listings = this.getData
                     // check if warehouse filter is applied
                     if(warehouse.length){
                         var warehouses = warehouse.map(x => x.value)
-                        console.log(warehouses)
+                        // // console.log(warehouses)
                         this.listings = Object.fromEntries(Object.entries(this.getData).filter(([key]) => {
-                            // console.log(this.getData[key].name)
+                            // // console.log(this.getData[key].name)
                             return warehouses.includes(this.getData[key].name)
                         }))
                     }else {
@@ -75,7 +92,7 @@ export default {
                         // check if city filter is applied
                         if(city && this.appliedFilters['city'] !== city){
                             this.listings = Object.fromEntries(Object.entries(this.listings).filter(([key]) => {
-                                // console.log(this.getData[key].name)
+                                // // console.log(this.getData[key].name)
                                 return (this.getData[key]['city']) == city 
                             }))
                             this.appliedFilters['city'] = city
@@ -83,29 +100,29 @@ export default {
                         }
                         if(cluster && this.appliedFilters['cluster'] !== cluster){
                             this.listings = Object.fromEntries(Object.entries(this.listings).filter(([key]) => {
-                                    // console.log(this.getData[key].name)
+                                    // // console.log(this.getData[key].name)
                                     return (this.getData[key]['cluster']) == cluster
                             }))
                             this.appliedFilters['cluster'] = cluster
                         }
                         if (!availSpaceReset && JSON.stringify(this.appliedFilters.availSpace) !== JSON.stringify(availSpace)){
-                            console.log('slider slided')
+                            // // console.log('slider slid')
                             this.listings = Object.fromEntries(Object.entries(this.listings).filter(([key]) => {
-                                    // console.log(this.getData[key].name)
+                                    // // console.log(this.getData[key].name)
                                     return  availSpace[0] <= (this.getData[key]['space_available']) &&  
                                                 availSpace[1] >= (this.getData[key]['space_available'])
                             }))
                         }
                         if(is_live && this.appliedFilters['is_live'] !== is_live){
                             this.listings = Object.fromEntries(Object.entries(this.listings).filter(([key]) => {
-                                    // console.log(this.getData[key].name)
+                                    // // console.log(this.getData[key].name)
                                     return (this.getData[key]['is_live']) == is_live
                             }))
                             this.appliedFilters['is_live'] = is_live
                         }
                         if(is_registered && this.appliedFilters['is_registered'] !== is_registered){
                             this.listings = Object.fromEntries(Object.entries(this.listings).filter(([key]) => {
-                                    // console.log(this.getData[key].name)
+                                    // // console.log(this.getData[key].name)
                                     return (this.getData[key]['is_registered']) == is_registered
                             }))
                             this.appliedFilters['is_registered'] = is_registered
@@ -116,7 +133,13 @@ export default {
         }
     },
     mounted: function() {
-       this.listings = this.getData
+        // // console.log('mounted')        
+        var listingDiv = this.$el.querySelector('#listing');
+        this.$nextTick(() => {
+            listingDiv.scrollTop = this.$store.state.listingScrollTop
+        })
+        this.listings = this.getData
+        console.log(this.$FModal)
     }
 }
 </script>
@@ -125,7 +148,7 @@ export default {
     #listing{
         flex : 1;
         overflow-y: auto;
-        height : 88vh;
+        height : 92vh !important;
 
         #header{
             margin : 16px 0 32px 0;
@@ -134,8 +157,20 @@ export default {
             line-height: 1.33;
         }
 
-        #total-results{
-            text-align: right;
+        #listing-options{
+            display: flex;
+            justify-content: flex-end;
+
+            #filter-button{
+                display : none;
+                margin-left: 20px;
+                margin-bottom: 5px;
+                font-size : 18px;
+                font-weight: 700;
+            }
+
+            #total-results{
+                text-align: right;
                 margin-right: 16px;
                 font-size: 12px;
                 line-height: 16px;
@@ -143,7 +178,17 @@ export default {
                 text-transform: uppercase;
                 color: #8A8A8A;
                 font-weight: 600;
+            }
         }
-
     }
+
+@media only screen and (max-width: 800px) {
+
+    #listing-options{
+        justify-content: space-between !important;
+        #filter-button{
+            display: block !important;
+        }
+    }
+}
 </style>

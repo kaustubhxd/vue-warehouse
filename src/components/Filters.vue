@@ -1,12 +1,6 @@
 <template>
-    <div id="filters">
+    <div id="filters" >
         <div id="header"><h3>Filters</h3></div> 
-
-
-        <!-- <label class="typo__label">Tagging</label> -->
-          <!-- <pre class="language-json"><code>{{ value  }}</code></pre> -->
-        <!-- {{warehouseNames}} -->
-        <!-- {{warehouseNames}} -->
         <SearchBox searchBy='warehouse' :options='warehouseNames' label='Search by Warehouse Name' type='multi'/>
         <SearchBox searchBy='city' :options='cityNames' label='Filter by City' type='single'/>
         <SearchBox searchBy='cluster' :options='clusterNames' label='Filter by Cluster' type='single'/>
@@ -44,21 +38,18 @@ export default {
 
 <style lang="scss" scoped>
     #filters {
+        min-width : 300px;
         width : 300px;
-        background: pink;
-        overflow-x: hidden;
-        overflow-y: auto;
+        height: 90vh ;
         border: 1px solid #EEE;
-        width: 316px;
-        overflow-y: auto;
         border-radius: 6px;
         padding:  23px;
         padding-top: 0;
-        background: #fff;
-        max-height: 562px;
         padding-top: 16px;
         margin-top : 20px;
-        overflow: visible;
+        overflow-y: auto;
+        overflow-x: hidden;
+        overflow : visible;
 
         #header{
             margin : 16px 0 32px 0;
@@ -85,4 +76,12 @@ export default {
         }
 
     }
+
+@media only screen and (max-width: 800px) {
+
+    #filters{
+        width : auto;
+        height: 100% ;
+}
+}
 </style>
