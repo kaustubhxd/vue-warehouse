@@ -26,6 +26,8 @@ const router = new VueRouter({
 
 router.beforeEach((to, _, next) => {
   const possibleRoutes = routes.map(route => route.name)
+  console.log(to)
+  console.log(possibleRoutes)
   if(possibleRoutes.includes(to.name)){
     next()
   }else{
