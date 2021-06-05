@@ -1,5 +1,7 @@
 # vue-warehouse
 
+## Live Website : https://itskaustubh.github.io/vue-warehouse/
+
 ## Project setup
 ```
 yarn install
