@@ -1,4 +1,5 @@
 # vue-warehouse
+Assignment by Stockarea.io 
 
 ## Live Website : https://itskaustubh.github.io/vue-warehouse/
 
