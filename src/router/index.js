@@ -1,38 +1,38 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Vue from "vue";
+import VueRouter from "vue-router";
+import Home from "../views/Home.vue";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'Browse',
-    component: Home
+    path: "/",
+    name: "Browse",
+    component: Home,
   },
   {
-    path: '/warehouse-:id',
-    name: 'Details',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Warehouse.vue'),
-    meta: { transitionName: 'slide' },
+    path: "/:id",
+    name: "Details",
+    component: () => import(/* webpackChunkName: "about" */ "../views/Warehouse.vue"),
+    meta: { transitionName: "slide" },
   },
-]
+];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
-  routes
-})
+  routes,
+});
 
 router.beforeEach((to, _, next) => {
-  const possibleRoutes = routes.map(route => route.name)
-  console.log(to)
-  console.log(possibleRoutes)
-  if(possibleRoutes.includes(to.name)){
-    next()
-  }else{
-    next({ name: 'Browse' })
+  const possibleRoutes = routes.map((route) => route.name);
+  console.log(to);
+  console.log(possibleRoutes);
+  if (possibleRoutes.includes(to.name)) {
+    next();
+  } else {
+    next({ name: "Browse" });
   }
-})
+});
 
-export default router
+export default router;
