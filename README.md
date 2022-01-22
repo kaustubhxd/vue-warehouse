@@ -1,4 +1,4 @@
-### BaseSpace
+### Basespace
 
 #### A website to help you browse through a list of warehouses to lease by applying different search filters 
 #### https://itskaustubh.github.io/vue-warehouse
