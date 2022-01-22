@@ -1,27 +1,8 @@
-# vue-warehouse
-Assignment by Stockarea.io 
+### BaseSpace
 
-## Live Website : https://itskaustubh.github.io/vue-warehouse/
+#### A fullstack warehouse listing website built to improve my backend skills.
+#### https://itskaustubh.github.io/vue-warehouse
 
-## Project setup
-```
-yarn install
-```
+![Vue.js](https://img.shields.io/badge/vuejs-%2335495e.svg?style=for-the-badge&logo=vuedotjs&logoColor=%234FC08D) ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white) ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB) 
 
-### Compiles and hot-reloads for development
-```
-yarn serve
-```
-
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Lints and fixes files
-```
-yarn lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+#### yarn [ build | start | test | eject ]
